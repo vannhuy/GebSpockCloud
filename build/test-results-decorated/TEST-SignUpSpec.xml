@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SignUpSpec (nexus4)" tests="1" skipped="0" failures="1" errors="0" timestamp="2015-08-03T05:13:20" hostname="framgiavn-Inspiron-3537" time="66.762">
+  <properties/>
+  <testcase name="SignUp with blank username and password (nexus4)" classname="SignUpSpec" time="66.762">
+    <failure message="geb.error.RequiredPageContentNotPresent: The required page content 'loginForm - SimplePageContent (owner: SignUpPage, args: [], value: null)' is not present" type="geb.error.RequiredPageContentNotPresent">geb.error.RequiredPageContentNotPresent: The required page content 'loginForm - SimplePageContent (owner: SignUpPage, args: [], value: null)' is not present
+	at geb.content.TemplateDerivedPageContent.require(TemplateDerivedPageContent.groovy:68)
+	at geb.content.PageContentTemplate.create_closure1(PageContentTemplate.groovy:67)
+	at geb.content.PageContentTemplate.create_closure1(PageContentTemplate.groovy)
+	at geb.content.PageContentTemplate.create(PageContentTemplate.groovy:86)
+	at geb.content.PageContentTemplate.get(PageContentTemplate.groovy:58)
+	at geb.content.DefaultPageContentSupport.getContent(DefaultPageContentSupport.groovy:42)
+	at geb.content.PageContentSupport.propertyMissing(PageContentSupport.groovy:39)
+	at geb.Page.propertyMissing(Page.groovy:99)
+	at geb.content.PageContentTemplateFactoryDelegate.propertyMissing(PageContentTemplateFactoryDelegate.groovy:45)
+	at groovy.lang.Closure.getPropertyTryThese(Closure.java:321)
+	at groovy.lang.Closure.getPropertyDelegateFirst(Closure.java:311)
+	at groovy.lang.Closure.getProperty(Closure.java:296)
+	at SignUpPage._clinit__closure1$_closure9(SignUpPage.groovy:15)
+	at SignUpPage._clinit__closure1$_closure9(SignUpPage.groovy)
+	at geb.content.PageContentTemplate.invokeFactory(PageContentTemplate.groovy:101)
+	at geb.content.PageContentTemplate.create_closure1(PageContentTemplate.groovy:63)
+	at geb.content.PageContentTemplate.create_closure1(PageContentTemplate.groovy)
+	at geb.content.PageContentTemplate.create(PageContentTemplate.groovy:86)
+	at geb.content.PageContentTemplate.get(PageContentTemplate.groovy:58)
+	at geb.content.DefaultPageContentSupport.getContent(DefaultPageContentSupport.groovy:42)
+	at geb.content.PageContentSupport.propertyMissing(PageContentSupport.groovy:39)
+	at geb.Page.propertyMissing(Page.groovy:99)
+	at geb.Browser.propertyMissing(Browser.groovy:214)
+	at geb.spock.GebSpec.propertyMissing(GebSpec.groovy:60)
+	at SignUpSpec.SignUp with blank username and password(SignUpSpec.groovy:14)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

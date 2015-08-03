@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="LoginSpec (nexus4)" tests="3" skipped="0" failures="0" errors="0" timestamp="2015-08-03T05:14:27" hostname="framgiavn-Inspiron-3537" time="70.128">
+  <properties/>
+  <testcase name="login with blank username and password (nexus4)" classname="LoginSpec" time="12.713"/>
+  <testcase name="login with invalid username and password (nexus4)" classname="LoginSpec" time="31.222"/>
+  <testcase name="login with valid username and password (nexus4)" classname="LoginSpec" time="26.191"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

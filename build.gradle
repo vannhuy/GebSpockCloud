@@ -1,0 +1,174 @@
+ext {
+    // The drivers we want to use
+    drivers = ["firefox", "chrome", "phantomJs"]
+
+    ext {
+        groovyVersion = '2.4.1'
+        gebVersion = '0.12.0'
+        seleniumVersion = '2.46.0'
+        chromeDriverVersion = '2.10'
+        phantomJsVersion = '1.9.7'
+    }
+}
+
+apply plugin: "groovy"
+apply plugin: "geb-saucelabs"
+apply plugin: "java"
+apply plugin: "geb-browserstack"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.gebish:geb-gradle:0.12.0'
+    }
+}
+
+sourceCompatibility = 1.5
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven { url "http://repository-saucelabs.forge.cloudbees.com/release" }
+}
+
+dependencies {
+
+    //If using sauceLabs
+    sauceConnect "com.saucelabs:ci-sauce:1.81"
+
+    // If using JUnit, need to depend on geb-junit (3 or 4)
+    testCompile "org.gebish:geb-junit4:$gebVersion"
+    // If using Spock, need to depend on geb-spock
+    testCompile "org.gebish:geb-spock:$gebVersion"
+    testCompile("org.spockframework:spock-core:1.0-groovy-2.4") {
+        exclude group: "org.codehaus.groovy"
+    }
+    testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
+    // Drivers
+    testCompile "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+    testCompile "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
+    // using a custom version of phantomjs driver for now as the original one does not support WebDriver > 2.43.1
+    testCompile("com.codeborne:phantomjsdriver:1.2.1") {
+        // phantomjs driver pulls in a different selenium version
+        transitive = false
+    }
+}
+
+sauceLabs {
+    browsers {
+        firefox_linux_39 {
+            capabilities(
+                    name: "FireFox Linux 39 Test",
+                    browserName: "FireFox",
+                    passed: "true"
+            )
+        }
+        //chrome_mac
+        safari_mac_8 {
+            capabilities(
+                    passed: "false"
+            )
+        }
+
+        internet_explorer_11{
+            capabilities(
+                    name: "Internet Explorer 11 Test",
+                    browserName: "iexplore",
+                    passed: "true",
+                    screenResolution: "1280x1024",
+                    version: "11",
+                    platform: "Windows 7"
+            )
+        }
+        nexus4 {
+            capabilities(
+                    name: "nexus",
+                    version: "4.4",
+                    browserName: "android",
+                    deviceName: "LG Nexus 4 Emulator"
+            )
+        }
+    }
+    task {
+        testClassesDir = test.testClassesDir
+        testSrcDirs = test.testSrcDirs
+        classpath = test.classpath
+    }
+    account {
+        //tên username trên SauceLabs
+        username = "vannhuy"
+        //access key trên SauceLabs
+        accessKey = "38ca7807-5e08-4a25-8592-2789bbb890ae"
+        //username = System.getenv(SauceAccount.USER_ENV_VAR)
+        //accessKey = System.getenv(SauceAccount.ACCESS_KEY_ENV_VAR)
+    }
+    connect {
+        port = 4445
+        //additionalOptions = ['--proxy', 'proxy.example.com:8080']
+    }
+}
+
+browserStack {
+    application 'http://ngocthoainguyen.herokuapp.com/signin'
+    forceLocal = true
+    browsers {
+        chrome_windows_7{
+            capabilities(
+                    name: "Windows 7 Chrome",
+                    browser: "Chrome",
+                    os: "WINDOWS",
+                    os_version: "7",
+                    version: "43",
+                    passed: "true"
+            )
+            capability("browserstack.debug","true")
+        }
+        chrome_mac
+    }
+    task {
+        testClassesDir = test.testClassesDir
+        testSrcDirs = test.testSrcDirs
+        classpath = test.classpath
+    }
+    account {
+        //tên username trên BrowserStack
+        username = "nguyenthanhdat1"
+        //access key trên BrowserStack
+        accessKey = "kRtnFDmSGPRE64b1aX1w"
+    }
+}
+
+drivers.each { driver ->
+    task "${driver}Test"(type: Test) {
+        reports {
+            html.destination = reporting.file("$name/tests")
+            junitXml.destination = file("$buildDir/test-results/$name")
+        }
+
+        outputs.upToDateWhen { false }  // Always run tests
+
+        systemProperty "geb.build.reportsDir", reporting.file("$name/geb")
+        systemProperty "geb.env", driver
+    }
+}
+
+/*chromeTest {
+    dependsOn unzipChromeDriver
+
+    def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
+    systemProperty "webdriver.chrome.driver", new File(unzipChromeDriver.outputs.files.singleFile, chromedriverFilename).absolutePath
+}
+
+phantomJsTest {
+    //dependsOn unzipPhantomJs
+
+    def phantomJsFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "phantomjs.exe" : "bin/phantomjs"
+    systemProperty "phantomjs.binary.path", new File(unzipPhantomJs.outputs.files.singleFile, phantomJsFilename).absolutePath
+}*/
+
+test {
+    dependsOn drivers.collect { tasks["${it}Test"] }
+    enabled = false
+}

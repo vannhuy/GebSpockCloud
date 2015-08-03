@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="groovy.SignUpSpec (nexus4)" tests="1" skipped="0" failures="0" errors="0" timestamp="2015-07-27T02:53:15" hostname="framgiavn-Inspiron-3537" time="0.989">
+  <properties/>
+  <testcase name="SignUp with blank username and password (nexus4)" classname="groovy.SignUpSpec" time="0.989"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

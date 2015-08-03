@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="LoginSpec (nexus4)" tests="3" skipped="0" failures="0" errors="0" timestamp="2015-07-27T02:53:03" hostname="framgiavn-Inspiron-3537" time="11.296">
+  <properties/>
+  <testcase name="login with blank username and password (nexus4)" classname="LoginSpec" time="6.894"/>
+  <testcase name="login with invalid username and password (nexus4)" classname="LoginSpec" time="1.792"/>
+  <testcase name="login with valid username and password (nexus4)" classname="LoginSpec" time="2.608"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Starting ChromeDriver (v2.10.267518) on port 2231
+Only local connections are allowed.
+[0.620][WARNING]: PAC support disabled because there is no system implementation
+]]></system-err>
+</testsuite>
